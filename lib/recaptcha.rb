@@ -65,6 +65,7 @@ module Recaptcha
     verify_hash['remoteip'] = options[:remote_ip] if options.key?(:remote_ip)
 
     reply = api_verification(verify_hash, timeout: options[:timeout])
+    Rails.logger.info(reply)
     reply['success'].to_s == 'true' &&
       hostname_valid?(reply['hostname'], options[:hostname]) &&
       action_valid?(reply['action'], options[:action]) &&
